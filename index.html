@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111318">
+<title>Aperture</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" id="brandHome"><span class="mark">◉</span><span>APERTURE<small>YOUR INTERNET, ORGANISED</small></span></a>
+  <div class="top-actions">
+    <button class="ghost" id="addBookmark">＋ Bookmark</button>
+    <button class="icon" id="themeToggle" title="Toggle theme">◐</button>
+  </div>
+</header>
+
+<div class="browserbar">
+  <div class="tabstrip" id="tabstrip" aria-label="Aperture tabs"></div>
+  <button class="icon newtab" id="newTab" title="New Aperture tab">＋</button>
+</div>
+
+<main id="app">
+  <section class="page active" id="homePage" data-page="home">
+    <div class="hero">
+      <div class="eyebrow">YOUR PERSONAL START PAGE</div>
+      <h1>Where to?</h1>
+      <p>Search, build, play, create.</p>
+      <form class="searchbox" id="searchForm">
+        <span class="search-symbol">⌕</span>
+        <input id="searchInput" placeholder="Search the web or enter a website…" autocomplete="off">
+        <select id="engine" aria-label="Search engine">
+          <option value="google">Google</option><option value="bing">Bing</option><option value="duck">DuckDuckGo</option><option value="brave">Brave</option><option value="youtube">YouTube</option>
+        </select>
+        <button class="primary">Search ↗</button>
+      </form>
+      <div class="hint">External websites open in a normal Chrome tab when needed.</div>
+    </div>
+
+    <section class="section">
+      <div class="section-heading"><h2>Quick access</h2><button class="text-button" id="manageBookmarks">Manage</button></div>
+      <div class="tiles" id="bookmarkTiles"></div>
+    </section>
+
+    <div class="columns">
+      <section class="section">
+        <div class="section-heading"><h2>Gaming</h2><span class="section-note">PLAY · DISCOVER · TRACK</span></div>
+        <div class="link-list" id="gamingLinks"></div>
+      </section>
+      <section class="section">
+        <div class="section-heading"><h2>Programming</h2><span class="section-note">BUILD · LEARN · DEBUG</span></div>
+        <div class="link-list" id="devLinks"></div>
+      </section>
+    </div>
+    <section class="section">
+      <div class="section-heading"><h2>Workspace</h2><span class="section-note">SAVED ON THIS DEVICE</span></div>
+      <div class="workspace">
+        <div class="panel"><div class="panel-title">📝 Quick notes</div><textarea id="notes" placeholder="Ideas, commands, links, reminders…"></textarea><div class="muted tiny" id="saveStatus">Saved automatically</div></div>
+        <div class="panel"><div class="panel-title">🧰 Developer toolbox</div><div class="tool-grid">
+          <button data-tool="json">JSON formatter</button><button data-tool="base64">Base64</button>
+          <button data-tool="url">URL encoder</button><button data-tool="color">Colour picker</button>
+          <button data-tool="calc">Calculator</button><button data-tool="timestamp">Unix timestamp</button>
+        </div></div>
+      </div>
+    </section>
+  </section>
+
+  <section class="page" id="toolsPage" data-page="tools">
+    <div class="subpage-head"><div class="eyebrow">APERTURE WORKSPACE</div><h1>Developer tools</h1><p>Handy utilities without leaving your start page.</p></div>
+    <div class="tool-cards">
+      <article class="panel tool-card"><h3>JSON formatter</h3><p>Format or validate JSON data.</p><textarea id="jsonInput" placeholder='{"hello":"world"}'></textarea><button class="primary" id="formatJson">Format JSON</button><textarea id="jsonOutput" placeholder="Formatted output…" readonly></textarea><button class="secondary copy" data-copy="jsonOutput">Copy result</button></article>
+      <article class="panel tool-card"><h3>Base64 converter</h3><p>Encode or decode text.</p><textarea id="baseInput" placeholder="Enter text…"></textarea><div class="button-row"><button class="primary" id="baseEncode">Encode</button><button class="secondary" id="baseDecode">Decode</button></div><textarea id="baseOutput" readonly placeholder="Result…"></textarea><button class="secondary copy" data-copy="baseOutput">Copy result</button></article>
+      <article class="panel tool-card"><h3>URL encoder</h3><p>Encode or decode URL components.</p><textarea id="urlInput" placeholder="Enter text or URL…"></textarea><div class="button-row"><button class="primary" id="urlEncode">Encode</button><button class="secondary" id="urlDecode">Decode</button></div><textarea id="urlOutput" readonly placeholder="Result…"></textarea><button class="secondary copy" data-copy="urlOutput">Copy result</button></article>
+      <article class="panel tool-card"><h3>Colour picker</h3><p>Choose a colour and copy its HEX value.</p><input type="color" id="colorInput" value="#aebcff"><input id="colorHex" value="#aebcff" readonly><button class="secondary copy" data-copy="colorHex">Copy HEX</button></article>
+      <article class="panel tool-card"><h3>Calculator</h3><p>Basic arithmetic with parentheses.</p><input id="calcInput" placeholder="(12 + 8) * 3"><button class="primary" id="calculate">Calculate</button><input id="calcOutput" readonly placeholder="Result…"></article>
+      <article class="panel tool-card"><h3>Unix timestamp</h3><p>Convert a timestamp or get the current one.</p><button class="secondary" id="currentTimestamp">Use current timestamp</button><input id="timestampInput" placeholder="Unix timestamp"><button class="primary" id="convertTimestamp">Convert to date</button><div id="timestampOutput" class="result-box">Result appears here.</div></article>
+    </div>
+  </section>
+
+  <section class="page" id="bookmarksPage" data-page="bookmarks">
+    <div class="subpage-head"><div class="eyebrow">YOUR SAVED LINKS</div><h1>Bookmarks</h1><p>Manage your shortcuts. Changes are saved in this browser.</p></div>
+    <div class="panel bookmark-manager"><div class="add-bookmark-form"><input id="bookmarkName" placeholder="Name"><input id="bookmarkUrl" placeholder="https://example.com"><input id="bookmarkIcon" placeholder="Icon" maxlength="4"><button class="primary" id="saveBookmark">Add bookmark</button></div><div id="bookmarkManagerList"></div></div>
+  </section>
+
+  <section class="page" id="aboutPage" data-page="about">
+    <div class="subpage-head"><div class="eyebrow">ABOUT THIS PROJECT</div><h1>Aperture</h1><p>A lightweight browser-style dashboard for ChromeOS.</p></div>
+    <div class="panel prose"><h3>How Aperture works</h3><p>Aperture is a regular website. Its internal tabs switch between Aperture pages and tools. When you visit an external website, Aperture opens it in a regular Chrome tab so the site can use its normal browser features.</p><p>Some sites block being displayed inside another website. A normal hosted website cannot override that restriction or become a replacement browser engine.</p><h3>Privacy</h3><p>Your bookmarks, theme and notes are stored locally in this browser using local storage. Aperture does not run a server or collect your browsing history.</p></div>
+  </section>
+</main>
+
+<footer><span>APERTURE · CHROMEOS EDITION</span><span>Built for ChromeOS · Hosted on GitHub Pages</span></footer>
+<div class="toast" id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>
